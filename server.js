@@ -5,6 +5,9 @@ const app = express();
 const mongoose = require(`mongoose`);
 const cors = require(`cors`);
 
+const jukeboxRouter = require(`./controller/jukeboxController.js`);
+app.use(cors({ origin: `http://localhost:5173` }));
+
 mongoose.connect(process.env.MONGODB_URI);
 
 mongoose.connection.on(`connected`, () => {
@@ -12,6 +15,8 @@ mongoose.connection.on(`connected`, () => {
 });
 
 app.use(express.json());
+
+app.use(`/jukebox`, jukeboxRouter);
 
 app.listen(3000, () => {
   console.log(`The express app is ready!`);
