@@ -21,9 +21,9 @@ router.get(`/:songId`, async (req, res) => {
     res.status(200).json(getSong);
   } catch (e) {
     if (res.statusCode === 404) {
-      res.json({ error: error.message });
+      res.json({ error: e.message });
     } else {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: e.message });
     }
   }
 });
