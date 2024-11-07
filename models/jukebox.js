@@ -9,10 +9,26 @@ const jukeboxSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  //   dateOfRelease: {
-  //     type: String,
-  //     required: true,
-  //   },
+  coverArtUrl: {
+    type: String,
+    required: false,
+  },
+  songClipUrl: {
+    type: String,
+    required: false,
+  },
+  songLyrics: {
+    type: String,
+    required: false,
+  },
+  isApartAnAlbum: {
+    type: Boolean,
+    required: false,
+  },
+  yearOfRelease: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Jukebox = mongoose.model("Jukebox", jukeboxSchema);
