@@ -4,73 +4,73 @@ const router = express.Router();
 
 router.get(`/`, async (req, res) => {
   try {
-    const fetchSongs = await Jukebox.find({});
-    res.json(fetchSongs);
+    const fetchTracks = await Jukebox.find({});
+    res.json(fetchTracks);
   } catch (e) {
     res.status(500).send(e.message);
   }
 });
 
-router.get(`/:songId`, async (req, res) => {
+router.get(`/:tracksId`, async (req, res) => {
   try {
-    const getSong = await Jukebox.findById(req.params.songId);
-    if (!getSong) {
+    const getTrack = await Jukebox.findById(req.params.tracksId);
+    if (!getTrack) {
       res.status(404);
-      throw new Error(`Song has not been found.`);
+      throw new Error(`Track has not been found.`);
     }
-    res.status(200).json(getSong);
-  } catch (e) {
+    res.status(200).json(getTrack);
+  } catch (error) {
     if (res.statusCode === 404) {
-      res.json({ error: e.message });
+      res.json({ error: error.message });
     } else {
-      res.status(500).json({ error: e.message });
+      res.status(500).json({ error: `Not a valid ID` });
     }
   }
 });
 
 router.post(`/`, async (req, res) => {
   try {
-    const createSong = await Jukebox.create(req.body);
-    res.status(201).json(createSong);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    const createTrack = await Jukebox.create(req.body);
+    res.status(201).json(createTrack);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
-router.put(`/:songId`, async (req, res) => {
+router.put(`/:tracksId`, async (req, res) => {
   try {
-    const updateSong = await Jukebox.findByIdAndUpdate(
-      req.params.songId,
+    const updateTrack = await Jukebox.findByIdAndUpdate(
+      req.params.tracksId,
       req.body,
       { new: true }
     );
-    if (!updateSong) {
+    if (!updateTrack) {
       res.status(404);
-      throw new Error(`Song has not been found.`);
+      throw new Error(`Track has not been found.`);
     }
-    res.status(200).json(updateSong);
-  } catch (e) {
+    res.status(200).json(updateTrack);
+  } catch (error) {
     if (res.statusCode === 404) {
-      res.json({ error: e.message });
+      res.json({ error: error.message });
     } else {
-      res.status(500).json({ error: e.message });
+      res.status(500).json({ error: error.message });
     }
   }
 });
 
-router.delete(`/:songId`, async (req, res) => {
+router.delete(`/:tracksId`, async (req, res) => {
   try {
-    const deleteSong = await Jukebox.findByIdAndDelete(req.params.songId);
-    if (!deleteSong) {
+    const deleteTrack = await Jukebox.findByIdAndDelete(req.params.tracksId);
+    if (!deleteTrack) {
       res.status(404);
-      throw new Error(`Song has not been found.`);
+      throw new Error(`Track has not been found.`);
     }
-    res.status(201).json(deleteSong);
-  } catch (e) {
+    res.status(201).json(deleteTrack);
+  } catch (error) {
     if (res.statusCode === 404) {
-      res.json({ error: e.message });
+      res.json({ error: error.message });
     } else {
-      res.status(500).json({ error: e.message });
+      res.status(500).json({ error: error.message });
     }
   }
 });
